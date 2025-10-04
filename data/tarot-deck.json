@@ -1,0 +1,342 @@
+{
+  "deck": {
+    "name": "Rider-Waite Tarot",
+    "totalCards": 78,
+    "majorArcana": 22,
+    "minorArcana": 56
+  },
+  "cards": {
+    "majorArcana": [
+      {
+        "number": 0,
+        "name": "The Fool",
+        "arcana": "major",
+        "upright": {
+          "keywords": ["innocence", "new beginnings", "free spirit", "spontaneity", "adventure"],
+          "meaning": "The Fool represents new beginnings, having faith in the future, being inexperienced, not knowing what to expect, having beginners luck, improvisation and believing in the universe.",
+          "interpretation": "You are about to embark on a new journey. The Fool encourages you to have an open, curious mind and a sense of excitement. Anything can happen, and the Fool reminds you to keep your faith that the universe will provide and guide you on your way."
+        },
+        "reversed": {
+          "keywords": ["recklessness", "taken advantage of", "inconsideration", "stupidity"],
+          "meaning": "When reversed, the Fool suggests you are living in the moment and not considering consequences. You may be acting recklessly or taking unnecessary risks.",
+          "interpretation": "You may need to reassess your current situation. Are you taking too many risks? Are you being naive? The reversed Fool asks you to be more mindful of your decisions and their potential consequences."
+        }
+      },
+      {
+        "number": 1,
+        "name": "The Magician",
+        "arcana": "major",
+        "upright": {
+          "keywords": ["manifestation", "resourcefulness", "power", "inspired action", "willpower"],
+          "meaning": "The Magician is a card of manifestation and resourcefulness. You have the power to make your dreams reality through focused intention and action.",
+          "interpretation": "You have all the tools you need to succeed. The Magician indicates that the universe is aligning to bring you what you desire. Take inspired action, focus your will, and manifest your goals."
+        },
+        "reversed": {
+          "keywords": ["manipulation", "poor planning", "untapped talents", "trickery", "illusions"],
+          "meaning": "Reversed, the Magician suggests manipulation, deception, or wasted talent. You may not be using your skills effectively.",
+          "interpretation": "Are you using your powers for selfish or manipulative purposes? The reversed Magician warns against trickery and encourages you to examine whether you're being honest with yourself and others."
+        }
+      },
+      {
+        "number": 2,
+        "name": "The High Priestess",
+        "arcana": "major",
+        "upright": {
+          "keywords": ["intuition", "sacred knowledge", "divine feminine", "the subconscious mind", "mystery"],
+          "meaning": "The High Priestess represents intuition, sacred knowledge, and the divine feminine. She sits at the gate between conscious and subconscious realms.",
+          "interpretation": "Trust your intuition. The High Priestess encourages you to look beyond the obvious and tap into your inner wisdom. The answers you seek lie within."
+        },
+        "reversed": {
+          "keywords": ["secrets", "disconnected from intuition", "withdrawal", "silence"],
+          "meaning": "Reversed, the High Priestess indicates you may be ignoring your intuition or keeping secrets that are harming you.",
+          "interpretation": "You may be disconnected from your inner voice. The reversed High Priestess asks you to reconnect with your intuition and be honest about what you truly feel and know."
+        }
+      },
+      {
+        "number": 3,
+        "name": "The Empress",
+        "arcana": "major",
+        "upright": {
+          "keywords": ["femininity", "beauty", "nature", "nurturing", "abundance", "fertility"],
+          "meaning": "The Empress embodies abundance, nurturing, and the beauty of nature. She represents creation, fertility, and the divine feminine in full bloom.",
+          "interpretation": "This is a time of abundance and growth. The Empress encourages you to connect with nature, nurture yourself and others, and embrace your creative and feminine energy."
+        },
+        "reversed": {
+          "keywords": ["creative block", "dependence on others", "smothering", "emptiness"],
+          "meaning": "Reversed, the Empress may indicate creative blocks, codependency, or neglecting self-care.",
+          "interpretation": "You may be giving too much to others and not enough to yourself. The reversed Empress asks you to examine your relationships and creative pursuits - are you nurturing yourself as much as you nurture others?"
+        }
+      },
+      {
+        "number": 4,
+        "name": "The Emperor",
+        "arcana": "major",
+        "upright": {
+          "keywords": ["authority", "establishment", "structure", "father figure", "control"],
+          "meaning": "The Emperor represents authority, structure, and solid foundations. He is the father figure who provides stability and order.",
+          "interpretation": "Take charge and create structure in your life. The Emperor encourages you to be disciplined, organized, and to take a leadership role. Establish clear boundaries and systems."
+        },
+        "reversed": {
+          "keywords": ["domination", "excessive control", "lack of discipline", "inflexibility", "tyranny"],
+          "meaning": "Reversed, the Emperor suggests abuse of power, excessive control, or lack of discipline.",
+          "interpretation": "Are you being too rigid or controlling? The reversed Emperor warns against authoritarianism and encourages flexibility while maintaining necessary boundaries."
+        }
+      },
+      {
+        "number": 5,
+        "name": "The Hierophant",
+        "arcana": "major",
+        "upright": {
+          "keywords": ["spiritual wisdom", "religious beliefs", "conformity", "tradition", "institutions"],
+          "meaning": "The Hierophant represents tradition, conformity, and established institutions. He is the bridge between the divine and humanity.",
+          "interpretation": "You may benefit from traditional approaches or seeking guidance from established institutions or mentors. The Hierophant encourages you to honor tradition while seeking spiritual wisdom."
+        },
+        "reversed": {
+          "keywords": ["personal beliefs", "freedom", "challenging the status quo", "rebellion"],
+          "meaning": "Reversed, the Hierophant indicates rebellion against tradition or creating your own spiritual path.",
+          "interpretation": "You're being called to question established norms and create your own path. The reversed Hierophant encourages you to find your own spiritual truth rather than following others' beliefs."
+        }
+      },
+      {
+        "number": 6,
+        "name": "The Lovers",
+        "arcana": "major",
+        "upright": {
+          "keywords": ["love", "harmony", "relationships", "values alignment", "choices"],
+          "meaning": "The Lovers represents deep connections, harmony, and important choices. It's about alignment of values and authentic relationships.",
+          "interpretation": "You're facing an important decision about relationships or values. The Lovers encourages you to choose with your heart while staying true to your authentic self."
+        },
+        "reversed": {
+          "keywords": ["self-love", "disharmony", "imbalance", "misalignment of values"],
+          "meaning": "Reversed, the Lovers indicates relationship disharmony, misaligned values, or needing to prioritize self-love.",
+          "interpretation": "There may be discord in your relationships or a misalignment of values. The reversed Lovers asks you to examine whether you're being true to yourself in your connections with others."
+        }
+      },
+      {
+        "number": 7,
+        "name": "The Chariot",
+        "arcana": "major",
+        "upright": {
+          "keywords": ["control", "willpower", "success", "action", "determination"],
+          "meaning": "The Chariot represents victory through determination and willpower. It's about maintaining control while moving forward with confidence.",
+          "interpretation": "Success is yours through focused determination. The Chariot encourages you to harness your willpower, stay focused on your goals, and drive forward with confidence."
+        },
+        "reversed": {
+          "keywords": ["self-discipline", "opposition", "lack of direction", "aggression"],
+          "meaning": "Reversed, the Chariot suggests losing control, lack of direction, or aggressive behavior.",
+          "interpretation": "You may be struggling with direction or self-control. The reversed Chariot asks you to reassess your goals and ensure you're moving in the right direction with appropriate restraint."
+        }
+      },
+      {
+        "number": 8,
+        "name": "Strength",
+        "arcana": "major",
+        "upright": {
+          "keywords": ["strength", "courage", "persuasion", "influence", "compassion", "inner strength"],
+          "meaning": "Strength represents inner fortitude, courage, and compassionate influence. It's about gentle control and emotional resilience.",
+          "interpretation": "You have the inner strength to overcome any challenge. Strength encourages you to approach difficulties with compassion, patience, and gentle confidence rather than force."
+        },
+        "reversed": {
+          "keywords": ["self-doubt", "weakness", "insecurity", "low energy", "raw emotion"],
+          "meaning": "Reversed, Strength indicates self-doubt, lack of confidence, or losing control of emotions.",
+          "interpretation": "You may be doubting yourself or your abilities. The reversed Strength card asks you to reconnect with your inner power and approach challenges with renewed confidence."
+        }
+      },
+      {
+        "number": 9,
+        "name": "The Hermit",
+        "arcana": "major",
+        "upright": {
+          "keywords": ["soul-searching", "introspection", "being alone", "inner guidance", "contemplation"],
+          "meaning": "The Hermit represents withdrawal for introspection and soul-searching. It's about seeking inner wisdom through solitude.",
+          "interpretation": "This is a time for introspection and inner guidance. The Hermit encourages you to step back from the noise of the world and seek answers within through quiet contemplation."
+        },
+        "reversed": {
+          "keywords": ["isolation", "loneliness", "withdrawal", "lost your way"],
+          "meaning": "Reversed, the Hermit suggests excessive isolation, loneliness, or being lost in solitude.",
+          "interpretation": "You may be isolating yourself too much or feeling lost. The reversed Hermit asks you to balance solitude with connection and ensure you're not withdrawing from life entirely."
+        }
+      },
+      {
+        "number": 10,
+        "name": "Wheel of Fortune",
+        "arcana": "major",
+        "upright": {
+          "keywords": ["good luck", "karma", "life cycles", "destiny", "a turning point"],
+          "meaning": "The Wheel of Fortune represents the cycles of life, destiny, and changing fortunes. What goes around comes around.",
+          "interpretation": "A turning point is at hand. The Wheel of Fortune reminds you that life is cyclical - good times and bad times are both temporary. Trust in the natural flow of life."
+        },
+        "reversed": {
+          "keywords": ["bad luck", "resistance to change", "breaking cycles"],
+          "meaning": "Reversed, the Wheel of Fortune indicates resisting change, bad luck, or breaking free from negative cycles.",
+          "interpretation": "You may be experiencing a run of bad luck or resisting necessary changes. The reversed Wheel asks you to examine what cycles you need to break and embrace inevitable transformations."
+        }
+      },
+      {
+        "number": 11,
+        "name": "Justice",
+        "arcana": "major",
+        "upright": {
+          "keywords": ["justice", "fairness", "truth", "cause and effect", "law"],
+          "meaning": "Justice represents fairness, truth, and the law of cause and effect. Actions have consequences and truth will prevail.",
+          "interpretation": "Fairness and truth are paramount now. Justice encourages you to seek balance, make fair decisions, and trust that karmic justice will be served."
+        },
+        "reversed": {
+          "keywords": ["unfairness", "lack of accountability", "dishonesty"],
+          "meaning": "Reversed, Justice indicates unfair treatment, dishonesty, or lack of accountability.",
+          "interpretation": "You may be experiencing or perpetrating unfairness. The reversed Justice card asks you to examine where truth and accountability are lacking in your situation."
+        }
+      },
+      {
+        "number": 12,
+        "name": "The Hanged Man",
+        "arcana": "major",
+        "upright": {
+          "keywords": ["pause", "surrender", "letting go", "new perspective", "sacrifice"],
+          "meaning": "The Hanged Man represents voluntary sacrifice, surrender, and seeing things from a new perspective through suspension.",
+          "interpretation": "Sometimes you need to let go and see things differently. The Hanged Man encourages you to surrender control, pause, and gain new perspective through willing sacrifice."
+        },
+        "reversed": {
+          "keywords": ["delays", "resistance", "stalling", "needless sacrifice"],
+          "meaning": "Reversed, the Hanged Man suggests resisting necessary change, stalling, or making needless sacrifices.",
+          "interpretation": "You may be stuck or making unnecessary sacrifices. The reversed Hanged Man asks you to examine whether you're truly surrendering or just avoiding action."
+        }
+      },
+      {
+        "number": 13,
+        "name": "Death",
+        "arcana": "major",
+        "upright": {
+          "keywords": ["endings", "change", "transformation", "transition", "letting go"],
+          "meaning": "Death represents necessary endings, profound transformation, and transitions. This is about rebirth, not literal death.",
+          "interpretation": "Something must end for something new to begin. Death encourages you to embrace necessary endings and transformations, knowing that rebirth and renewal await."
+        },
+        "reversed": {
+          "keywords": ["resistance to change", "personal transformation", "inner purging"],
+          "meaning": "Reversed, Death indicates resisting necessary change, fear of endings, or internal transformation.",
+          "interpretation": "You may be resisting an inevitable ending or change. The reversed Death card asks you to release your fear and allow necessary transformations to occur."
+        }
+      },
+      {
+        "number": 14,
+        "name": "Temperance",
+        "arcana": "major",
+        "upright": {
+          "keywords": ["balance", "moderation", "patience", "purpose", "harmony"],
+          "meaning": "Temperance represents balance, moderation, and the middle path. It's about finding harmony through patience and purpose.",
+          "interpretation": "Seek balance and moderation in all things. Temperance encourages you to find the middle path, practice patience, and blend opposing forces harmoniously."
+        },
+        "reversed": {
+          "keywords": ["imbalance", "excess", "self-healing", "realignment"],
+          "meaning": "Reversed, Temperance indicates imbalance, excess, or the need for self-healing and realignment.",
+          "interpretation": "You may be experiencing extremes or imbalance. The reversed Temperance card asks you to restore equilibrium and practice moderation."
+        }
+      },
+      {
+        "number": 15,
+        "name": "The Devil",
+        "arcana": "major",
+        "upright": {
+          "keywords": ["shadow self", "attachment", "addiction", "restriction", "sexuality"],
+          "meaning": "The Devil represents bondage to material world, addiction, and unhealthy attachments. It reveals our shadow self and base desires.",
+          "interpretation": "You may be bound by unhealthy attachments or addictions. The Devil asks you to examine what's holding you captive and recognize that you have the power to free yourself."
+        },
+        "reversed": {
+          "keywords": ["releasing limiting beliefs", "exploring dark thoughts", "detachment"],
+          "meaning": "Reversed, the Devil indicates breaking free from bondage, releasing addictions, or exploring your shadow.",
+          "interpretation": "You're breaking free from what bound you. The reversed Devil celebrates liberation from unhealthy attachments and the courage to face your shadow self."
+        }
+      },
+      {
+        "number": 16,
+        "name": "The Tower",
+        "arcana": "major",
+        "upright": {
+          "keywords": ["sudden change", "upheaval", "chaos", "revelation", "awakening"],
+          "meaning": "The Tower represents sudden upheaval, destruction of false structures, and dramatic revelation. Necessary chaos brings truth.",
+          "interpretation": "Sudden change is breaking down false structures in your life. The Tower, while frightening, clears away what was built on shaky foundations to make room for truth and authenticity."
+        },
+        "reversed": {
+          "keywords": ["personal transformation", "fear of change", "averting disaster"],
+          "meaning": "Reversed, the Tower suggests resisting change, narrowly avoiding disaster, or internal transformation.",
+          "interpretation": "You may be resisting necessary upheaval or have narrowly avoided crisis. The reversed Tower asks you to make changes before they're forced upon you."
+        }
+      },
+      {
+        "number": 17,
+        "name": "The Star",
+        "arcana": "major",
+        "upright": {
+          "keywords": ["hope", "faith", "purpose", "renewal", "spirituality"],
+          "meaning": "The Star represents hope, renewed faith, and spiritual insight. It's a time of healing, renewal, and finding your purpose.",
+          "interpretation": "Hope and renewal are here. The Star brings inspiration, healing, and reconnection with your highest self. Have faith that you're on the right path."
+        },
+        "reversed": {
+          "keywords": ["lack of faith", "despair", "self-trust", "disconnection"],
+          "meaning": "Reversed, the Star indicates loss of faith, disconnection from purpose, or despair.",
+          "interpretation": "You may be losing hope or faith. The reversed Star asks you to reconnect with your inner light and remember that hope is never truly lost."
+        }
+      },
+      {
+        "number": 18,
+        "name": "The Moon",
+        "arcana": "major",
+        "upright": {
+          "keywords": ["illusion", "fear", "anxiety", "subconscious", "intuition"],
+          "meaning": "The Moon represents illusion, the subconscious, and navigating through uncertainty. Things are not as they seem.",
+          "interpretation": "Trust your intuition through this time of uncertainty. The Moon warns that illusions and fears may be distorting reality. Look beyond surface appearances."
+        },
+        "reversed": {
+          "keywords": ["release of fear", "repressed emotion", "inner confusion"],
+          "meaning": "Reversed, the Moon indicates releasing fear, confusion, or repressed emotions rising to surface.",
+          "interpretation": "Hidden fears or emotions are emerging. The reversed Moon asks you to confront what you've been avoiding and release fear that's been holding you back."
+        }
+      },
+      {
+        "number": 19,
+        "name": "The Sun",
+        "arcana": "major",
+        "upright": {
+          "keywords": ["positivity", "fun", "warmth", "success", "vitality"],
+          "meaning": "The Sun represents joy, success, celebration, and positivity. Everything is illuminated in warm, positive light.",
+          "interpretation": "This is a time of joy and success. The Sun brings positivity, vitality, and the warmth of achievement. Celebrate and enjoy this abundant time."
+        },
+        "reversed": {
+          "keywords": ["inner child", "feeling down", "overly optimistic"],
+          "meaning": "Reversed, the Sun indicates temporary setbacks, sadness, or excessive optimism obscuring reality.",
+          "interpretation": "You may be experiencing a cloud over your usual brightness. The reversed Sun asks you to reconnect with your inner joy and examine if pessimism is dimming your light."
+        }
+      },
+      {
+        "number": 20,
+        "name": "Judgement",
+        "arcana": "major",
+        "upright": {
+          "keywords": ["judgement", "rebirth", "inner calling", "absolution"],
+          "meaning": "Judgement represents self-evaluation, rebirth, and answering a higher calling. It's about awakening to your true purpose.",
+          "interpretation": "You're being called to a higher level of consciousness. Judgement asks you to reflect on past actions, learn from them, and step into a reborn version of yourself."
+        },
+        "reversed": {
+          "keywords": ["self-doubt", "inner critic", "ignoring the call"],
+          "meaning": "Reversed, Judgement indicates harsh self-criticism, doubt, or ignoring your inner calling.",
+          "interpretation": "You may be judging yourself too harshly or ignoring an important calling. The reversed Judgement asks you to practice self-compassion and listen to your higher self."
+        }
+      },
+      {
+        "number": 21,
+        "name": "The World",
+        "arcana": "major",
+        "upright": {
+          "keywords": ["completion", "accomplishment", "travel", "success", "fulfillment"],
+          "meaning": "The World represents completion, accomplishment, and fulfillment. A cycle is complete and you've achieved your goals.",
+          "interpretation": "You've reached the end of a journey with success. The World celebrates completion, achievement, and the satisfaction of a cycle well-lived. You're ready for the next adventure."
+        },
+        "reversed": {
+          "keywords": ["seeking personal closure", "short-cuts", "delays"],
+          "meaning": "Reversed, the World indicates incomplete goals, delays, or seeking closure.",
+          "interpretation": "You may be close to completion but not quite there. The reversed World asks you to finish what you started and avoid taking shortcuts to completion."
+        }
+      }
+    ]
+  }
+}
