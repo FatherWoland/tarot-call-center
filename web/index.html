@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarot Call Center - Operator Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="container">
+            <h1>🔮 Tarot Call Center</h1>
+            <div class="operator-info">
+                <span class="operator-name">Operator: <strong id="operatorName">Sarah</strong></span>
+                <span class="session-timer">Session: <strong id="sessionTime">00:00</strong></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="container">
+
+            <!-- Step 1: Caller Intake -->
+            <section id="intakeSection" class="section active">
+                <h2>Caller Intake</h2>
+
+                <div class="intake-form">
+                    <div class="form-group">
+                        <label>Caller Name (Optional)</label>
+                        <input type="text" id="callerName" placeholder="First name or how they'd like to be addressed">
+                    </div>
+
+                    <div class="form-group">
+                        <label>What area of life would you like guidance on today?</label>
+                        <select id="topicArea" class="form-select">
+                            <option value="">Select topic area...</option>
+                            <option value="love">Love & Relationships</option>
+                            <option value="career">Career & Work</option>
+                            <option value="money">Money & Finances</option>
+                            <option value="personal">Personal Growth & Spirituality</option>
+                            <option value="family">Family & Friends</option>
+                            <option value="health">Health & Wellness</option>
+                            <option value="general">General Life Path</option>
+                        </select>
+                    </div>
+
+                    <!-- Dynamic Follow-up Questions -->
+                    <div id="followUpQuestions" class="follow-up-questions"></div>
+
+                    <div class="form-group">
+                        <label>Caller's Emotional State</label>
+                        <select id="emotionalState" class="form-select">
+                            <option value="">How are they feeling?</option>
+                            <option value="hopeful">Hopeful / Optimistic</option>
+                            <option value="worried">Worried / Anxious</option>
+                            <option value="confused">Confused / Lost</option>
+                            <option value="excited">Excited / Eager</option>
+                            <option value="sad">Sad / Grieving</option>
+                            <option value="angry">Angry / Frustrated</option>
+                            <option value="neutral">Neutral / Calm</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Main Question / Concern</label>
+                        <textarea id="mainQuestion" rows="3" placeholder="What they most want to understand..."></textarea>
+                    </div>
+
+                    <button class="btn btn-primary btn-large" onclick="proceedToSpreadSelection()">
+                        Select Spread →
+                    </button>
+                </div>
+            </section>
+
+            <!-- Step 2: Spread Selection -->
+            <section id="spreadSection" class="section">
+                <h2>Select Tarot Spread</h2>
+
+                <div class="spread-recommendation" id="spreadRecommendation">
+                    <div class="recommendation-box">
+                        <h3>💡 Recommended Spread</h3>
+                        <p id="recommendedSpreadText">Complete the intake form to get a spread recommendation.</p>
+                    </div>
+                </div>
+
+                <div class="spread-grid">
+                    <div class="spread-card" onclick="selectSpread('one-card')">
+                        <h3>One Card</h3>
+                        <div class="spread-visual">[ 1 ]</div>
+                        <p>Quick guidance, simple questions</p>
+                        <span class="spread-time">3-5 min</span>
+                    </div>
+
+                    <div class="spread-card" onclick="selectSpread('past-present-future')">
+                        <h3>Past-Present-Future</h3>
+                        <div class="spread-visual">[ 1 ] [ 2 ] [ 3 ]</div>
+                        <p>Timeline understanding, where things are going</p>
+                        <span class="spread-time">8-10 min</span>
+                    </div>
+
+                    <div class="spread-card" onclick="selectSpread('situation-action-outcome')">
+                        <h3>Situation-Action-Outcome</h3>
+                        <div class="spread-visual">[ 1 ] [ 2 ] [ 3 ]</div>
+                        <p>Decision-making, what to do</p>
+                        <span class="spread-time">8-10 min</span>
+                    </div>
+
+                    <div class="spread-card" onclick="selectSpread('you-them-relationship')">
+                        <h3>You-Them-Relationship</h3>
+                        <div class="spread-visual">[ 1 ] [ 2 ] [ 3 ]</div>
+                        <p>Relationship dynamics</p>
+                        <span class="spread-time">8-10 min</span>
+                    </div>
+
+                    <div class="spread-card" onclick="selectSpread('decision-crossroads')">
+                        <h3>Decision Crossroads</h3>
+                        <div class="spread-visual">
+                            <div style="text-align: center;">[ 3 ]</div>
+                            <div>[ 1 ] - [ 2 ] - [ 4 ]</div>
+                            <div style="text-align: center;">[ 5 ]</div>
+                        </div>
+                        <p>Choosing between two options</p>
+                        <span class="spread-time">12-15 min</span>
+                    </div>
+
+                    <div class="spread-card" onclick="selectSpread('celtic-cross')">
+                        <h3>Celtic Cross</h3>
+                        <div class="spread-visual">
+                            <div style="text-align: center;">[ 4 ]</div>
+                            <div>[ 5 ] - [ 1 ][ 2 ] - [ 6 ]</div>
+                            <div style="text-align: center;">[ 3 ]</div>
+                            <div>[ 10 ] [ 9 ] [ 8 ] [ 7 ]</div>
+                        </div>
+                        <p>Comprehensive, complex situations</p>
+                        <span class="spread-time">20-25 min</span>
+                    </div>
+                </div>
+
+                <div class="section-nav">
+                    <button class="btn btn-secondary" onclick="showSection('intakeSection')">
+                        ← Back to Intake
+                    </button>
+                </div>
+            </section>
+
+            <!-- Step 3: Set Intention & Draw Cards -->
+            <section id="drawSection" class="section">
+                <h2>Draw Cards</h2>
+
+                <div class="reading-summary">
+                    <h3>Reading Summary</h3>
+                    <div class="summary-grid">
+                        <div class="summary-item">
+                            <span class="label">Caller:</span>
+                            <span id="summaryCallerName">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="label">Topic:</span>
+                            <span id="summaryTopic">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="label">Spread:</span>
+                            <span id="summarySpread">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="label">Emotional State:</span>
+                            <span id="summaryEmotion">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="intention-box">
+                    <h3>Set Intention</h3>
+                    <p class="script-text">
+                        "Now, I'd like you to take a deep breath with me and think about your question.
+                        Hold it in your mind clearly. <em>[PAUSE]</em> When you're ready, let me know,
+                        and I'll draw your cards."
+                    </p>
+                </div>
+
+                <div class="draw-cards-container">
+                    <button class="btn btn-primary btn-large btn-draw" onclick="drawCards()">
+                        🎴 Draw Cards
+                    </button>
+                </div>
+
+                <div class="section-nav">
+                    <button class="btn btn-secondary" onclick="showSection('spreadSection')">
+                        ← Back to Spreads
+                    </button>
+                </div>
+            </section>
+
+            <!-- Step 4: Reading Display -->
+            <section id="readingSection" class="section">
+                <h2>Reading</h2>
+
+                <div class="cards-display" id="cardsDisplay">
+                    <!-- Cards will be displayed here -->
+                </div>
+
+                <div class="interpretation-panel" id="interpretationPanel">
+                    <!-- Interpretation guidance will appear here -->
+                </div>
+
+                <div class="reading-actions">
+                    <button class="btn btn-secondary" onclick="exportReading()">
+                        📄 Export Reading
+                    </button>
+                    <button class="btn btn-primary" onclick="startNewReading()">
+                        ✨ New Reading
+                    </button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="dashboard-footer">
+        <div class="container">
+            <p>Tarot Call Center System v1.0 | <a href="https://github.com/FatherWoland/tarot-call-center" target="_blank">GitHub</a></p>
+        </div>
+    </footer>
+
+    <!-- Load Tarot Data -->
+    <script src="js/tarot-data.js"></script>
+    <script src="js/spreads.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
