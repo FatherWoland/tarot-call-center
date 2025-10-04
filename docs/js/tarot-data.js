@@ -157,3 +157,8 @@ function drawCards(count, allowReversed = true) {
 
     return drawnCards;
 }
+
+// Expose functions to window object for use in other scripts
+window.drawTarotCards = drawCards;
+window.getFullDeck = getFullDeck;
+window.shuffleDeck = shuffleDeck;

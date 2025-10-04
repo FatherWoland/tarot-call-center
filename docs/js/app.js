@@ -263,7 +263,7 @@ function updateReadingSummary() {
 // Draw Cards
 function drawCards() {
     const spread = SPREADS[AppState.selectedSpread];
-    const cards = window.drawCards(spread.cardCount, true);
+    const cards = window.drawTarotCards(spread.cardCount, true);
 
     AppState.drawnCards = cards.map((card, index) => ({
         ...card,
