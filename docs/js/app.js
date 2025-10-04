@@ -434,6 +434,13 @@ function generateReadingText() {
     return text;
 }
 
+// Redraw Cards (same spread, new cards)
+function redrawCards() {
+    if (confirm('Draw new cards for the same spread?')) {
+        drawCards();
+    }
+}
+
 // Start New Reading
 function startNewReading() {
     if (confirm('Are you sure you want to start a new reading? Current reading will be lost.')) {
