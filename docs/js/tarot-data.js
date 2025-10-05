@@ -92,7 +92,7 @@ const MINOR_ARCANA_DATA = {
     ]
 };
 
-// Build full deck
+// Build deck - ONLY 22 Major Arcana cards
 function getFullDeck() {
     const fullDeck = [];
 
@@ -106,21 +106,21 @@ function getFullDeck() {
         });
     });
 
-    // Add all Minor Arcana
-    Object.keys(MINOR_ARCANA_DATA).forEach(suit => {
-        MINOR_ARCANA_DATA[suit].forEach(card => {
-            const cardName = `${card.name} of ${suit.charAt(0).toUpperCase() + suit.slice(1)}`;
-            fullDeck.push({
-                ...card,
-                name: cardName,
-                displayName: cardName,
-                id: `${suit}-${card.num}`,
-                suit: suit,
-                arcana: 'minor',
-                number: card.num
-            });
-        });
-    });
+    // Minor Arcana excluded - using only 22 Major Arcana cards
+    // Object.keys(MINOR_ARCANA_DATA).forEach(suit => {
+    //     MINOR_ARCANA_DATA[suit].forEach(card => {
+    //         const cardName = `${card.name} of ${suit.charAt(0).toUpperCase() + suit.slice(1)}`;
+    //         fullDeck.push({
+    //             ...card,
+    //             name: cardName,
+    //             displayName: cardName,
+    //             id: `${suit}-${card.num}`,
+    //             suit: suit,
+    //             arcana: 'minor',
+    //             number: card.num
+    //         });
+    //     });
+    // });
 
     return fullDeck;
 }
@@ -165,4 +165,4 @@ window.getFullDeck = getFullDeck;
 window.shuffleDeck = shuffleDeck;
 
 // Log deck size for verification
-console.log(`🔮 Complete Tarot Deck Loaded: ${getFullDeck().length} cards`);
+console.log(`🔮 Major Arcana Deck Loaded: ${getFullDeck().length} cards`);
