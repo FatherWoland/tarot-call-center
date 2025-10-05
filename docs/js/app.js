@@ -352,8 +352,21 @@ function revealNextCard() {
         };
         interpretationPanel.appendChild(revealButton);
 
-    // STEP 2: Show the actual card with interpretation
+    // STEP 2: Show the actual card with DRAMATIC REVEAL
     } else {
+        // CARD REVEAL ANNOUNCEMENT
+        const revealBox = document.createElement('div');
+        revealBox.className = 'card-reveal-box';
+        revealBox.innerHTML = `
+            <div class="reveal-announcement">
+                <h2>✨ THE CARD IS REVEALED ✨</h2>
+                <div class="revealed-card-name">${currentCard.displayName}</div>
+                <div class="revealed-orientation">${currentCard.isReversed ? '🔄 REVERSED' : '⬆️ UPRIGHT'}</div>
+            </div>
+        `;
+        interpretationPanel.appendChild(revealBox);
+
+        // INTERPRETATION SECTION
         const section = document.createElement('div');
         section.className = 'interpretation-section';
 
@@ -364,9 +377,8 @@ function revealNextCard() {
         const personalizedInterpretation = generatePersonalizedCardInterpretation(currentCard, AppState.currentCardIndex);
 
         section.innerHTML = `
-            <h3>${AppState.currentCardIndex + 1}. ${currentCard.position.name}: ${currentCard.displayName} ${currentCard.isReversed ? '(Reversed)' : ''}</h3>
+            <h3>${currentCard.position.name} Position</h3>
             <div class="card-meaning">
-                <p><strong>Position:</strong> ${currentCard.position.description}</p>
                 <p><strong>Card Energy:</strong> ${currentCard.meaning.meaning}</p>
                 <div class="keywords">${keywords}</div>
             </div>
@@ -427,18 +439,47 @@ function generatePersonalizedCardInterpretation(card, cardIndex) {
 
     const context = topicContext[topic] || 'your situation';
 
-    // Start with acknowledging what position means for THEM - EMPATHETIC HIPPY VIBE
-    script += `Beautiful, so here in the ${position.name} position - this space is showing us ${position.description.toLowerCase()} - `;
+    // Varied creative openings - not always "Beautiful"
+    const openings = [
+        `Alright love, so here in the ${position.name} position - this space is showing us ${position.description.toLowerCase()} - `,
+        `Okay, diving into the ${position.name} position now - which reveals ${position.description.toLowerCase()} - `,
+        `Mmm, so in the ${position.name} position - this is where we see ${position.description.toLowerCase()} - `,
+        `Let's tune into the ${position.name} position here - this sacred space shows us ${position.description.toLowerCase()} - `,
+        `Ooh, interesting! The ${position.name} position - this is illuminating ${position.description.toLowerCase()} - `,
+        `Right, so the ${position.name} position is speaking to us - revealing ${position.description.toLowerCase()} - `,
+        `Beautiful, so here in the ${position.name} position - this space is showing us ${position.description.toLowerCase()} - `
+    ];
 
-    // Connect card to their specific circumstances - EMPATHETIC HIPPY STYLE
+    script += openings[Math.floor(Math.random() * openings.length)];
+
+    // More creative varied language for card reveals
+    const cardIntros = [
+        `and the universe is bringing us ${card.displayName}${card.isReversed ? ' reversed' : ''}`,
+        `the cosmos has drawn ${card.displayName}${card.isReversed ? ' reversed' : ''} for us`,
+        `spirit is revealing ${card.displayName}${card.isReversed ? ' in reversal' : ''}`,
+        `we're being shown ${card.displayName}${card.isReversed ? ' reversed' : ''}`,
+        `the divine has gifted us ${card.displayName}${card.isReversed ? ', and it\'s reversed' : ''}`
+    ];
+
+    // Connect card to their specific circumstances - VARIED CREATIVE STYLE
     if (topic === 'love') {
         if (card.isReversed) {
-            script += `and the universe is bringing us ${card.displayName} reversed, yeah? `;
+            script += `${cardIntros[Math.floor(Math.random() * cardIntros.length)]}, yeah? `;
 
             if (emotionalState === 'sad' || emotionalState === 'worried') {
-                script += `Oh honey, I'm feeling that heaviness you're carrying in your heart. This card, it's like... it's mirroring that pain right back to us, showing us what needs healing. `;
+                const sadResponses = [
+                    `Oh honey, I'm feeling that heaviness you're carrying in your heart. This card, it's like... it's mirroring that pain right back to us, showing us what needs healing. `,
+                    `Sweetheart, I can sense that ache in your chest. The cards are reflecting your sorrow back, asking you to witness it with compassion. `,
+                    `My love, that heartbreak you're holding? It's written all over this card. The universe sees your pain and wants to transmute it. `
+                ];
+                script += sadResponses[Math.floor(Math.random() * sadResponses.length)];
             } else if (emotionalState === 'confused') {
-                script += `Mmm, that confusion you're feeling? That totally makes sense when we tune into this energy. The universe is asking you to sit with this. `;
+                const confusedResponses = [
+                    `Mmm, that confusion you're feeling? That totally makes sense when we tune into this energy. The universe is asking you to sit with this. `,
+                    `Yeah, I get it - this feels murky, unclear. But that fog? It's actually preparing you for clarity. Spirit wants you to be patient here. `,
+                    `The swirl of uncertainty around you - the cards are acknowledging it. This confusion is temporary, a necessary passage. `
+                ];
+                script += confusedResponses[Math.floor(Math.random() * confusedResponses.length)];
             }
 
             script += `What's coming through for me is that ${card.meaning.interpretation.toLowerCase()} - but right now, my love, that beautiful ${card.meaning.keywords[0]} energy is kind of stuck or turned inward in ${context}. It needs some gentle releasing. `;
@@ -447,10 +488,15 @@ function generatePersonalizedCardInterpretation(card, cardIndex) {
                 script += `So when you're asking "${mainQuestion}" - spirit is saying you need to do some inner work with this ${card.meaning.keywords[0]} energy first. That's your medicine right now, that's your path forward. `;
             }
         } else {
-            script += `the universe has blessed us with ${card.displayName}. `;
+            script += `${cardIntros[Math.floor(Math.random() * cardIntros.length)]}! `;
 
             if (emotionalState === 'hopeful') {
-                script += `Oh and I'm loving this hopeful energy you're bringing! The cards are totally vibing with you on this, really affirming what you're already feeling in your soul. `;
+                const hopefulResponses = [
+                    `Oh and I'm loving this hopeful energy you're bringing! The cards are totally vibing with you on this, really affirming what you're already feeling in your soul. `,
+                    `Your hope is so palpable, and the universe is matching that frequency! This card is saying 'yes, you're on the right path.' `,
+                    `That optimism radiating from you? The cosmos is amplifying it! This is your confirmation from the divine. `
+                ];
+                script += hopefulResponses[Math.floor(Math.random() * hopefulResponses.length)];
             }
 
             script += `${card.meaning.interpretation} This is speaking straight to your heart, to ${context}. `;
