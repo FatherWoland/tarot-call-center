@@ -313,16 +313,18 @@ function revealNextCard() {
         `<span class="keyword-tag">${kw}</span>`
     ).join('');
 
+    const personalizedInterpretation = generatePersonalizedCardInterpretation(currentCard, AppState.currentCardIndex);
+
     section.innerHTML = `
         <h3>${AppState.currentCardIndex + 1}. ${currentCard.position.name}: ${currentCard.displayName} ${currentCard.isReversed ? '(Reversed)' : ''}</h3>
         <div class="card-meaning">
-            <p><strong>Position Meaning:</strong> ${currentCard.position.description}</p>
-            <p><strong>Card Meaning:</strong> ${currentCard.meaning.meaning}</p>
+            <p><strong>Position:</strong> ${currentCard.position.description}</p>
+            <p><strong>Card Energy:</strong> ${currentCard.meaning.meaning}</p>
             <div class="keywords">${keywords}</div>
         </div>
         <div class="operator-script">
-            <h4>💬 What to Say:</h4>
-            <p>"${currentCard.meaning.interpretation}"</p>
+            <h4>💬 What to Say to the Caller:</h4>
+            <p>${personalizedInterpretation}</p>
         </div>
     `;
 
@@ -350,6 +352,142 @@ function revealNextCard() {
         `;
         interpretationPanel.appendChild(synthesisBox);
     }
+}
+
+// Generate Personalized Card Interpretation Based on Caller's Circumstances
+function generatePersonalizedCardInterpretation(card, cardIndex) {
+    const topic = AppState.callerData.topic;
+    const emotionalState = AppState.callerData.emotionalState;
+    const mainQuestion = AppState.callerData.mainQuestion;
+    const callerName = AppState.callerData.name || 'you';
+    const position = card.position;
+
+    let interpretation = '';
+
+    // Opening that connects to their situation
+    const topicContext = {
+        love: 'your relationship situation',
+        career: 'your career path',
+        money: 'your financial situation',
+        personal: 'your personal growth journey',
+        family: 'your family dynamics',
+        health: 'your health and wellbeing',
+        general: 'your life path'
+    };
+
+    const context = topicContext[topic] || 'your situation';
+
+    // Start with position context
+    interpretation += `In the ${position.name} position, representing ${position.description.toLowerCase()}, `;
+
+    // Connect card to their specific circumstances
+    if (topic === 'love') {
+        if (card.isReversed) {
+            interpretation += `${card.displayName} reversed addresses ${context}. `;
+            interpretation += `This suggests that ${card.meaning.interpretation.toLowerCase()} `;
+
+            if (emotionalState === 'sad' || emotionalState === 'worried') {
+                interpretation += `The pain you're feeling is reflected here - `;
+            } else if (emotionalState === 'confused') {
+                interpretation += `The confusion you mentioned makes sense because `;
+            }
+
+            interpretation += `in matters of the heart, ${card.meaning.keywords[0]} is being blocked or internalized. `;
+
+            if (mainQuestion) {
+                interpretation += `Regarding "${mainQuestion}" - this card suggests you need to address the reversed energy of ${card.meaning.keywords[0]} before moving forward. `;
+            }
+        } else {
+            interpretation += `${card.displayName} speaks directly to ${context}. `;
+            interpretation += `${card.meaning.interpretation} `;
+
+            if (emotionalState === 'hopeful') {
+                interpretation += `Your hopeful energy aligns with this card's message of ${card.meaning.keywords[0]}. `;
+            }
+
+            if (mainQuestion) {
+                interpretation += `In relation to your question about "${mainQuestion}" - this card shows that ${card.meaning.keywords[0]} is key to understanding your path forward. `;
+            }
+        }
+
+    } else if (topic === 'career') {
+        interpretation += `${card.displayName} ${card.isReversed ? 'reversed' : ''} reveals important insights about ${context}. `;
+
+        if (card.suit === 'pentacles') {
+            interpretation += `As a Pentacles card, this speaks to the practical, material aspects of your work life. `;
+        } else if (card.suit === 'wands') {
+            interpretation += `As a Wands card, this addresses your passion, ambition, and drive in your career. `;
+        } else if (card.suit === 'swords') {
+            interpretation += `As a Swords card, this points to mental clarity, communication, and decision-making at work. `;
+        } else if (card.suit === 'cups') {
+            interpretation += `As a Cups card, this reflects the emotional fulfillment and relationships in your professional life. `;
+        }
+
+        interpretation += `${card.meaning.interpretation} `;
+
+        if (mainQuestion) {
+            interpretation += `When you ask "${mainQuestion}" - this card indicates that ${card.meaning.keywords[0]} ${card.isReversed ? 'needs attention and rebalancing' : 'is the energy you should focus on'}. `;
+        }
+
+    } else if (topic === 'money') {
+        interpretation += `${card.displayName} ${card.isReversed ? 'reversed' : ''} addresses ${context}. `;
+
+        if (card.suit === 'pentacles' && !card.isReversed) {
+            interpretation += `This is a strong financial indicator. `;
+        } else if (card.isReversed) {
+            interpretation += `The reversal suggests financial energy that's blocked or needs redirection. `;
+        }
+
+        interpretation += `${card.meaning.interpretation} `;
+
+        if (emotionalState === 'worried' || emotionalState === 'anxious') {
+            interpretation += `I know money concerns are causing you stress. This card shows that ${card.meaning.keywords[0]} is ${card.isReversed ? 'an area needing your attention' : 'available to you now'}. `;
+        }
+
+        if (mainQuestion) {
+            interpretation += `Regarding "${mainQuestion}" - the answer lies in ${card.isReversed ? 'correcting' : 'embracing'} the energy of ${card.meaning.keywords[0]}. `;
+        }
+
+    } else if (topic === 'personal') {
+        interpretation += `${card.displayName} ${card.isReversed ? 'reversed' : ''} speaks to ${context}. `;
+
+        if (card.arcana === 'major') {
+            interpretation += `As a Major Arcana card, this represents a significant spiritual lesson and life theme you're working with. `;
+        }
+
+        interpretation += `${card.meaning.interpretation} `;
+
+        if (emotionalState === 'confused' || emotionalState === 'lost') {
+            interpretation += `The confusion you're experiencing is part of this journey - ${card.meaning.keywords[0]} is calling you to ${card.isReversed ? 'release resistance and' : ''} embrace growth. `;
+        }
+
+        if (mainQuestion) {
+            interpretation += `Your question "${mainQuestion}" is answered through the lens of ${card.meaning.keywords[0]} - this is what your soul is working on right now. `;
+        }
+
+    } else if (topic === 'family') {
+        interpretation += `${card.displayName} ${card.isReversed ? 'reversed' : ''} illuminates ${context}. `;
+        interpretation += `${card.meaning.interpretation} `;
+
+        if (emotionalState === 'angry' || emotionalState === 'frustrated') {
+            interpretation += `Your frustration is valid - this card shows that ${card.meaning.keywords[0]} is ${card.isReversed ? 'being blocked in these relationships' : 'the path to healing'}. `;
+        }
+
+        if (mainQuestion) {
+            interpretation += `When it comes to "${mainQuestion}" - this card reveals that ${card.meaning.keywords[0]} is central to resolving this family matter. `;
+        }
+
+    } else {
+        // General reading
+        interpretation += `${card.displayName} ${card.isReversed ? 'reversed' : ''} appears in ${context}. `;
+        interpretation += `${card.meaning.interpretation} `;
+
+        if (mainQuestion) {
+            interpretation += `In answer to "${mainQuestion}" - this card brings the energy of ${card.meaning.keywords[0]}, which ${card.isReversed ? 'needs to be unblocked or redirected' : 'is available to guide you forward'}. `;
+        }
+    }
+
+    return interpretation;
 }
 
 // Generate Synthesis with Professional Narrative Techniques
