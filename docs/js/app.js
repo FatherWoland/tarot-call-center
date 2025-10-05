@@ -427,107 +427,107 @@ function generatePersonalizedCardInterpretation(card, cardIndex) {
 
     const context = topicContext[topic] || 'your situation';
 
-    // Start with acknowledging what position means for THEM
-    script += `Okay, so in the ${position.name} position - which shows us ${position.description.toLowerCase()} - `;
+    // Start with acknowledging what position means for THEM - EMPATHETIC HIPPY VIBE
+    script += `Beautiful, so here in the ${position.name} position - this space is showing us ${position.description.toLowerCase()} - `;
 
-    // Connect card to their specific circumstances - DIRECT SPEECH
+    // Connect card to their specific circumstances - EMPATHETIC HIPPY STYLE
     if (topic === 'love') {
         if (card.isReversed) {
-            script += `we've drawn ${card.displayName} reversed. `;
+            script += `and the universe is bringing us ${card.displayName} reversed, yeah? `;
 
             if (emotionalState === 'sad' || emotionalState === 'worried') {
-                script += `I can see you're carrying some pain around this, and this card is reflecting that back to us. `;
+                script += `Oh honey, I'm feeling that heaviness you're carrying in your heart. This card, it's like... it's mirroring that pain right back to us, showing us what needs healing. `;
             } else if (emotionalState === 'confused') {
-                script += `The confusion you've been feeling makes sense when we look at this card. `;
+                script += `Mmm, that confusion you're feeling? That totally makes sense when we tune into this energy. The universe is asking you to sit with this. `;
             }
 
-            script += `What this is telling me is that ${card.meaning.interpretation.toLowerCase()} - but right now, that energy of ${card.meaning.keywords[0]} is blocked or turned inward in ${context}. `;
+            script += `What's coming through for me is that ${card.meaning.interpretation.toLowerCase()} - but right now, my love, that beautiful ${card.meaning.keywords[0]} energy is kind of stuck or turned inward in ${context}. It needs some gentle releasing. `;
 
             if (mainQuestion) {
-                script += `When you ask me "${mainQuestion}" - this card is saying you've got to work through this reversed ${card.meaning.keywords[0]} energy first. That's the key to moving forward. `;
+                script += `So when you're asking "${mainQuestion}" - spirit is saying you need to do some inner work with this ${card.meaning.keywords[0]} energy first. That's your medicine right now, that's your path forward. `;
             }
         } else {
-            script += `we have ${card.displayName}. `;
+            script += `the universe has blessed us with ${card.displayName}. `;
 
             if (emotionalState === 'hopeful') {
-                script += `And I love that you're feeling hopeful about this, because this card is really confirming that energy. `;
+                script += `Oh and I'm loving this hopeful energy you're bringing! The cards are totally vibing with you on this, really affirming what you're already feeling in your soul. `;
             }
 
-            script += `${card.meaning.interpretation} This is speaking directly to ${context}. `;
+            script += `${card.meaning.interpretation} This is speaking straight to your heart, to ${context}. `;
 
             if (mainQuestion) {
-                script += `So when you ask "${mainQuestion}" - the cards are showing me that ${card.meaning.keywords[0]} is absolutely central here. That's what you need to understand and work with. `;
+                script += `When you're asking "${mainQuestion}" - what the universe is illuminating for you is that ${card.meaning.keywords[0]} is like... it's your soul's central lesson right now. This is the energy you're here to dance with. `;
             }
         }
 
     } else if (topic === 'career') {
-        script += `we've got ${card.displayName}${card.isReversed ? ' reversed' : ''}. `;
+        script += `spirit has gifted us ${card.displayName}${card.isReversed ? ' reversed' : ''}. Mmm. `;
 
-        script += `${card.meaning.interpretation} This is what's happening with ${context} right now. `;
+        script += `${card.meaning.interpretation} This is the energy flowing through ${context} in this moment. `;
 
         if (mainQuestion) {
-            script += `You asked me "${mainQuestion}" - and what I'm seeing is that ${card.meaning.keywords[0]} is ${card.isReversed ? 'where you need to put your attention. Something needs rebalancing here' : 'the energy that\'s going to help you most'}. `;
+            script += `So you're asking "${mainQuestion}" - and what's coming through in the reading is that ${card.meaning.keywords[0]} is ${card.isReversed ? 'asking for your loving attention. There\'s some rebalancing needed here, some healing to tend to' : 'this beautiful force that wants to support you. Let it flow through you'}. `;
         }
 
         if (emotionalState === 'worried') {
-            script += `I know you're worried about this, but the cards are giving us clear direction on what to focus on. `;
+            script += `I'm sensing that worry you're holding, friend. But you know what? The universe is giving us such clear guidance here. Trust in that. `;
         }
 
     } else if (topic === 'money') {
-        script += `I'm seeing ${card.displayName}${card.isReversed ? ' reversed' : ''}. `;
+        script += `the universe is showing us ${card.displayName}${card.isReversed ? ' reversed' : ''}. `;
 
         if (emotionalState === 'worried' || emotionalState === 'anxious') {
-            script += `I know money worries are weighing on you. `;
+            script += `Oh sweetheart, I can feel that financial stress you're carrying. Just breathe with me for a moment... `;
         }
 
         if (card.isReversed) {
-            script += `The reversal here tells me that the energy around ${context} is blocked right now. `;
+            script += `This reversal? It's showing us that the energy around ${context} is a bit stuck right now, needs some movement, some shift. `;
         }
 
         script += `${card.meaning.interpretation} `;
 
         if (mainQuestion) {
-            script += `When you're asking "${mainQuestion}" - what the cards are showing is that ${card.meaning.keywords[0]} is ${card.isReversed ? 'what needs to shift. You\'re going to need to address this to move forward' : 'working in your favor. This is the energy to lean into'}. `;
+            script += `You're asking "${mainQuestion}" - and the wisdom coming through is that ${card.meaning.keywords[0]} is ${card.isReversed ? 'where the blockage is, yeah? This energy needs to flow again, needs some love and attention to transform' : 'totally working with you, supporting your abundance. Open yourself to receive this'}. `;
         }
 
     } else if (topic === 'personal') {
-        script += `we have ${card.displayName}${card.isReversed ? ' reversed' : ''}. `;
+        script += `the cosmos has drawn ${card.displayName}${card.isReversed ? ' reversed' : ''} for us. `;
 
         if (card.arcana === 'major') {
-            script += `Now this is a Major Arcana card, so this is a big soul lesson we're looking at here. `;
+            script += `Oh wow, Major Arcana... so this is deep soul work, beautiful one. This is a sacred lesson your spirit is moving through. `;
         }
 
         script += `${card.meaning.interpretation} `;
 
         if (emotionalState === 'confused' || emotionalState === 'lost') {
-            script += `I know you're feeling a bit lost right now, but that confusion? It's actually part of the journey. ${card.meaning.keywords[0]} is calling you to ${card.isReversed ? 'let go of resistance and ' : ''}move toward growth. `;
+            script += `I'm holding space for that feeling of being lost you're experiencing. But you know what's beautiful? That confusion is actually your soul expanding, opening to new wisdom. ${card.meaning.keywords[0]} is calling you to ${card.isReversed ? 'release the resistance, surrender, and ' : ''}just flow with this growth. Trust the process. `;
         }
 
         if (mainQuestion) {
-            script += `You asked "${mainQuestion}" - and what I'm picking up is that ${card.meaning.keywords[0]} is what your soul is working on right now. This is your answer. `;
+            script += `When you ask "${mainQuestion}" - what I'm channeling is that ${card.meaning.keywords[0]} is literally your soul's assignment right now. This is the medicine you came here to receive. `;
         }
 
     } else if (topic === 'family') {
-        script += `the cards are showing me ${card.displayName}${card.isReversed ? ' reversed' : ''}. `;
+        script += `spirit is revealing ${card.displayName}${card.isReversed ? ' reversed' : ''} to us. `;
 
         script += `${card.meaning.interpretation} `;
 
         if (emotionalState === 'angry' || emotionalState === 'frustrated') {
-            script += `Look, I can hear the frustration in your voice, and that's completely valid. This card is telling me that ${card.meaning.keywords[0]} is ${card.isReversed ? 'getting blocked in these family dynamics' : 'actually the path through this'}. `;
+            script += `Mmm, I'm really feeling that frustration radiating from you, and you know what? That's so valid, so real. Your feelings matter. What this card is whispering to us is that ${card.meaning.keywords[0]} is ${card.isReversed ? 'getting stuck in these family patterns. There\'s some old energy that wants to move, to shift' : 'actually your doorway through this. It\'s the healing path calling to you'}. `;
         }
 
         if (mainQuestion) {
-            script += `You're asking "${mainQuestion}" - and this card is showing that ${card.meaning.keywords[0]} is at the heart of this family situation. That's what needs your attention. `;
+            script += `When you're asking "${mainQuestion}" - the universe is pointing directly to ${card.meaning.keywords[0]}. This is the heart center of what's happening with your family. This needs your gentle, loving awareness. `;
         }
 
     } else {
         // General reading
-        script += `we're looking at ${card.displayName}${card.isReversed ? ' reversed' : ''}. `;
+        script += `the universe is presenting us with ${card.displayName}${card.isReversed ? ' reversed' : ''}. `;
 
         script += `${card.meaning.interpretation} `;
 
         if (mainQuestion) {
-            script += `So "${mainQuestion}" - the answer I'm getting from the cards is that ${card.meaning.keywords[0]} is ${card.isReversed ? 'blocked right now. This needs to be cleared or redirected' : 'the energy that\'s available to you. This is what will guide you forward'}. `;
+            script += `You're asking "${mainQuestion}" - and what's flowing through from the divine is that ${card.meaning.keywords[0]} is ${card.isReversed ? 'feeling stuck right now, needs some releasing, some clearing. This wants to transform' : 'totally here for you, available to you. This is your guiding light right now'}. `;
         }
     }
 
