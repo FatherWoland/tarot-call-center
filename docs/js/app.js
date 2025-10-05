@@ -337,14 +337,15 @@ function displayReading() {
     interpretationPanel.appendChild(synthesisBox);
 }
 
-// Generate Synthesis
+// Generate Synthesis with Professional Narrative Techniques
 function generateSynthesis() {
     const topic = AppState.callerData.topic;
     const spread = SPREADS[AppState.selectedSpread];
     const cards = AppState.drawnCards;
 
-    // Count card types for overall energy
+    // Analyze card patterns
     const majorCount = cards.filter(c => c.arcana === 'major').length;
+    const reversedCount = cards.filter(c => c.isReversed).length;
     const suitCounts = {};
 
     cards.forEach(card => {
@@ -355,46 +356,150 @@ function generateSynthesis() {
 
     let synthesis = '';
 
-    if (majorCount > cards.length / 2) {
-        synthesis += 'This reading is dominated by Major Arcana cards, indicating significant life themes and fated energies at play. ';
+    // Start with the overall energy
+    if (majorCount === cards.length) {
+        synthesis += 'This reading is entirely Major Arcana - this is a profoundly significant moment in your life. The universe is speaking loudly, and major forces are at work beyond your immediate control. ';
+    } else if (majorCount > cards.length / 2) {
+        synthesis += 'The dominance of Major Arcana cards reveals that this situation involves significant life lessons and spiritual themes. These aren't just day-to-day concerns - they're part of your soul's journey. ';
+    } else if (majorCount === 0) {
+        synthesis += 'Your reading shows all Minor Arcana cards, which means you have considerable power to influence this situation. These are practical matters within your control. ';
     }
 
+    // Analyze suit dominance for deeper meaning
     const dominantSuit = Object.keys(suitCounts).reduce((a, b) =>
         suitCounts[a] > suitCounts[b] ? a : b,
         Object.keys(suitCounts)[0]
     );
 
-    const suitMeanings = {
-        wands: 'action, passion, and creative energy',
-        cups: 'emotions, relationships, and feelings',
-        swords: 'mental activity, communication, and challenges',
-        pentacles: 'material matters, finances, and practical concerns'
+    const suitNarratives = {
+        wands: 'passion and willpower are driving this situation - there\'s fire and momentum here, urging you to take bold action',
+        cups: 'deep emotions and relationships are at the heart of this matter - your feelings and connections with others are the key',
+        swords: 'mental clarity and communication are central - this is about truth, thought processes, and how you express yourself',
+        pentacles: 'practical and material concerns are foundational here - this is about building something tangible and secure'
     };
 
     if (dominantSuit && suitCounts[dominantSuit] > 1) {
-        synthesis += `The reading is heavily influenced by ${suitMeanings[dominantSuit]}. `;
+        synthesis += `The prevalence of ${dominantSuit.charAt(0).toUpperCase() + dominantSuit.slice(1)} tells us that ${suitNarratives[dominantSuit]}. `;
     }
 
-    synthesis += `The overall energy suggests ${cards[0].meaning.keywords[0]} leading to ${cards[cards.length - 1].meaning.keywords[0]}.`;
+    // Create narrative flow based on spread type
+    if (cards.length === 3 && AppState.selectedSpread === 'past-present-future') {
+        synthesis += `\n\nLooking at your journey: You've moved from ${cards[0].displayName} (${cards[0].meaning.keywords.slice(0,2).join(', ')}) through ${cards[1].displayName} (${cards[1].meaning.keywords[0]}) and are heading toward ${cards[2].displayName} (${cards[2].meaning.keywords[0]}). `;
+
+        synthesis += `This tells a story of ${cards[0].isReversed ? 'overcoming' : 'building upon'} ${cards[0].meaning.keywords[0]}, currently ${cards[1].isReversed ? 'struggling with' : 'experiencing'} ${cards[1].meaning.keywords[0]}, and ultimately ${cards[2].isReversed ? 'working through' : 'achieving'} ${cards[2].meaning.keywords[0]}. `;
+    } else if (cards.length >= 3) {
+        synthesis += `\n\nThe narrative arc here moves from ${cards[0].displayName} to ${cards[cards.length - 1].displayName}, showing a transformation from ${cards[0].meaning.keywords[0]} toward ${cards[cards.length - 1].meaning.keywords[0]}. `;
+    }
+
+    // Note reversals
+    if (reversedCount > cards.length / 2) {
+        synthesis += `\n\nWith ${reversedCount} reversed cards, much of this energy is internalized or blocked. What you see on the surface isn't the full story - there's inner work and hidden challenges to address. `;
+    } else if (reversedCount > 0) {
+        synthesis += `The reversed card${reversedCount > 1 ? 's' : ''} suggest${reversedCount === 1 ? 's' : ''} areas where energy is blocked or needs to be redirected inward. `;
+    }
 
     return synthesis;
 }
 
-// Generate Guidance
+// Generate Deep, Actionable Guidance
 function generateGuidance() {
-    const lastCard = AppState.drawnCards[AppState.drawnCards.length - 1];
+    const cards = AppState.drawnCards;
+    const firstCard = cards[0];
+    const lastCard = cards[cards.length - 1];
     const topic = AppState.callerData.topic;
+    const emotionalState = AppState.callerData.emotionalState;
 
-    const guidanceTemplates = {
-        love: `The path forward in your relationship involves ${lastCard.meaning.keywords[0]}. Trust the guidance of the cards and communicate openly.`,
-        career: `Your career path is showing ${lastCard.meaning.keywords[0]}. Take action aligned with this energy and trust the process.`,
-        money: `Financially, the cards suggest ${lastCard.meaning.keywords[0]}. Make decisions with both wisdom and faith.`,
-        personal: `Your personal growth journey is moving toward ${lastCard.meaning.keywords[0]}. Honor this process and be patient with yourself.`,
-        family: `Your family dynamic is evolving toward ${lastCard.meaning.keywords[0]}. Approach with compassion and understanding.`,
-        general: `Your path forward involves ${lastCard.meaning.keywords[0]}. Trust in the journey and remain open to what unfolds.`
+    let guidance = '';
+
+    // Opening based on emotional state
+    const emotionalOpenings = {
+        hopeful: 'Your hopeful energy aligns well with what the cards are showing. ',
+        worried: 'I understand your worry, and the cards offer clarity to ease your concerns. ',
+        confused: 'The confusion you\'re feeling makes sense given what\'s happening, and the cards provide the clarity you need. ',
+        sad: 'The cards acknowledge the sadness you\'re carrying and offer a path forward. ',
+        angry: 'Your frustration is valid, and the cards show you how to channel that energy productively. ',
+        neutral: 'The cards have an important message for you. '
     };
 
-    return guidanceTemplates[topic] || guidanceTemplates.general;
+    guidance += emotionalOpenings[emotionalState] || 'The cards have guidance for you. ';
+
+    // Core guidance based on topic and card combinations
+    if (topic === 'love') {
+        if (lastCard.isReversed) {
+            guidance += `In matters of the heart, ${lastCard.displayName} reversed suggests that before you can move forward in this relationship, there's internal work to be done. ${lastCard.meaning.interpretation} `;
+            guidance += `The key is to ${lastCard.meaning.keywords[0]} within yourself first. `;
+        } else {
+            guidance += `Your relationship journey is moving toward ${lastCard.displayName}, which represents ${lastCard.meaning.keywords.slice(0,2).join(' and ')}. ${lastCard.meaning.interpretation} `;
+        }
+
+        // Add specific action based on first and last card combo
+        if (firstCard.suit === 'cups' && lastCard.suit === 'cups') {
+            guidance += 'This is deeply emotional territory - honor your feelings while staying open to growth. ';
+        } else if (firstCard.suit === 'swords') {
+            guidance += 'Clear communication is essential. Speak your truth with compassion. ';
+        }
+
+    } else if (topic === 'career') {
+        if (lastCard.suit === 'pentacles') {
+            guidance += `Professionally, ${lastCard.displayName} points to tangible results and material outcomes. ${lastCard.meaning.interpretation} Focus on building something concrete and sustainable. `;
+        } else if (lastCard.suit === 'wands') {
+            guidance += `Your career path is ignited with ${lastCard.displayName}'s energy of ${lastCard.meaning.keywords[0]}. ${lastCard.meaning.interpretation} Take bold, decisive action. `;
+        } else {
+            guidance += `In your career, ${lastCard.displayName} indicates ${lastCard.meaning.interpretation} `;
+        }
+
+        guidance += `The path from ${firstCard.displayName} to ${lastCard.displayName} shows ${firstCard.isReversed ? 'releasing' : 'building on'} ${firstCard.meaning.keywords[0]} to reach ${lastCard.meaning.keywords[0]}. `;
+
+    } else if (topic === 'money') {
+        guidance += `Financially, the cards reveal a progression from ${firstCard.displayName} to ${lastCard.displayName}. `;
+
+        if (lastCard.suit === 'pentacles' && !lastCard.isReversed) {
+            guidance += `${lastCard.displayName} is an excellent financial indicator - ${lastCard.meaning.interpretation} Take practical steps toward building security. `;
+        } else if (lastCard.isReversed) {
+            guidance += `${lastCard.displayName} reversed warns of ${lastCard.meaning.keywords[0]} - ${lastCard.meaning.interpretation} Review your approach and make necessary adjustments. `;
+        } else {
+            guidance += `${lastCard.displayName} suggests ${lastCard.meaning.interpretation} `;
+        }
+
+        guidance += 'Make decisions based on both wisdom and intuition, not fear. ';
+
+    } else if (topic === 'personal') {
+        guidance += `Your personal growth journey shows powerful transformation. ${firstCard.displayName} brought you ${firstCard.meaning.keywords[0]}, and you're moving toward ${lastCard.displayName}'s energy of ${lastCard.meaning.keywords[0]}. `;
+        guidance += `${lastCard.meaning.interpretation} `;
+
+        if (lastCard.arcana === 'major') {
+            guidance += 'This is a significant spiritual lesson - embrace it fully. ';
+        }
+
+        guidance += 'Honor your process, be patient with yourself, and trust that you\'re exactly where you need to be. ';
+
+    } else if (topic === 'family') {
+        guidance += `In family matters, the cards show ${firstCard.displayName} leading to ${lastCard.displayName}. ${lastCard.meaning.interpretation} `;
+
+        if (lastCard.suit === 'cups') {
+            guidance += 'Emotional healing and connection are possible when approached with openness and compassion. ';
+        } else if (lastCard.suit === 'swords') {
+            guidance += 'Honest communication, even when difficult, will clear the air and bring truth to light. ';
+        }
+
+        guidance += 'Approach your family with understanding, set healthy boundaries, and remember that you can only control your own actions. ';
+
+    } else {
+        // General guidance
+        guidance += `The cards reveal a journey from ${firstCard.displayName} (${firstCard.meaning.keywords[0]}) to ${lastCard.displayName} (${lastCard.meaning.keywords[0]}). `;
+        guidance += `${lastCard.meaning.interpretation} `;
+
+        if (cards.some(c => c.arcana === 'major')) {
+            guidance += 'The presence of Major Arcana indicates this is a significant life chapter - pay close attention to the lessons emerging. ';
+        }
+
+        guidance += 'Trust the journey, stay present with what is, and remain open to what wants to unfold. ';
+    }
+
+    // Add final empowerment
+    guidance += '\n\nRemember: the cards show potential and energy, not fixed fate. You have the power to shape your path. ';
+
+    return guidance;
 }
 
 // Export Reading
