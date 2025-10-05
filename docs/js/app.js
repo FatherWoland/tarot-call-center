@@ -15,6 +15,7 @@ const AppState = {
     selectedSpread: null,
     drawnCards: [],
     currentCardIndex: 0,
+    showingPosition: true, // true = showing position, false = showing card
     readingData: {}
 };
 
@@ -271,13 +272,14 @@ function drawCards() {
         position: spread.positions[index]
     }));
 
-    // Reset card index and start progressive revelation
+    // Reset card index and position flag, start progressive revelation
     AppState.currentCardIndex = 0;
+    AppState.showingPosition = true;
     showSection('readingSection');
     revealNextCard();
 }
 
-// Reveal Next Card (Progressive Revelation)
+// Reveal Next Card (Progressive Revelation with Position First)
 function revealNextCard() {
     const cardsDisplay = document.getElementById('cardsDisplay');
     const interpretationPanel = document.getElementById('interpretationPanel');
@@ -286,11 +288,13 @@ function revealNextCard() {
     cardsDisplay.innerHTML = '';
     interpretationPanel.innerHTML = '';
 
-    // Display all cards revealed so far
+    const currentCard = AppState.drawnCards[AppState.currentCardIndex];
+
+    // Display all previously revealed cards
     const cardRow = document.createElement('div');
     cardRow.className = 'card-row';
 
-    for (let i = 0; i <= AppState.currentCardIndex; i++) {
+    for (let i = 0; i < AppState.currentCardIndex; i++) {
         const card = AppState.drawnCards[i];
         const cardDiv = document.createElement('div');
         cardDiv.className = `tarot-card ${card.isReversed ? 'card-reversed' : ''}`;
@@ -302,55 +306,101 @@ function revealNextCard() {
         cardRow.appendChild(cardDiv);
     }
 
+    // Add current position (face down if showing position, face up if showing card)
+    const currentCardDiv = document.createElement('div');
+    if (AppState.showingPosition) {
+        // Show face-down placeholder
+        currentCardDiv.className = 'tarot-card';
+        currentCardDiv.innerHTML = `
+            <div class="card-position">${currentCard.position.name}</div>
+            <div class="card-name">🂠</div>
+            <div class="card-orientation">Face Down</div>
+        `;
+    } else {
+        // Show revealed card
+        currentCardDiv.className = `tarot-card ${currentCard.isReversed ? 'card-reversed' : ''}`;
+        currentCardDiv.innerHTML = `
+            <div class="card-position">${currentCard.position.name}</div>
+            <div class="card-name">${currentCard.displayName}</div>
+            <div class="card-orientation">${currentCard.isReversed ? 'Reversed' : 'Upright'}</div>
+        `;
+    }
+    cardRow.appendChild(currentCardDiv);
+
     cardsDisplay.appendChild(cardRow);
 
-    // Display interpretation for the current card only
-    const currentCard = AppState.drawnCards[AppState.currentCardIndex];
-    const section = document.createElement('div');
-    section.className = 'interpretation-section';
+    // STEP 1: Show position meaning
+    if (AppState.showingPosition) {
+        const positionSection = document.createElement('div');
+        positionSection.className = 'interpretation-section';
+        positionSection.innerHTML = `
+            <h3>${AppState.currentCardIndex + 1}. ${currentCard.position.name}</h3>
+            <div class="card-meaning">
+                <p><strong>This position represents:</strong> ${currentCard.position.description}</p>
+                <p>This card will show you what's happening in this area of your situation.</p>
+            </div>
+        `;
+        interpretationPanel.appendChild(positionSection);
 
-    const keywords = currentCard.meaning.keywords.map(kw =>
-        `<span class="keyword-tag">${kw}</span>`
-    ).join('');
-
-    const personalizedInterpretation = generatePersonalizedCardInterpretation(currentCard, AppState.currentCardIndex);
-
-    section.innerHTML = `
-        <h3>${AppState.currentCardIndex + 1}. ${currentCard.position.name}: ${currentCard.displayName} ${currentCard.isReversed ? '(Reversed)' : ''}</h3>
-        <div class="card-meaning">
-            <p><strong>Position:</strong> ${currentCard.position.description}</p>
-            <p><strong>Card Energy:</strong> ${currentCard.meaning.meaning}</p>
-            <div class="keywords">${keywords}</div>
-        </div>
-        <div class="operator-script">
-            <h4>💬 What to Say to the Caller:</h4>
-            <p>${personalizedInterpretation}</p>
-        </div>
-    `;
-
-    interpretationPanel.appendChild(section);
-
-    // Check if there are more cards to reveal
-    if (AppState.currentCardIndex < AppState.drawnCards.length - 1) {
-        // Add "Next Card" button
-        const nextButton = document.createElement('button');
-        nextButton.className = 'btn btn-primary btn-large';
-        nextButton.textContent = '🎴 Reveal Next Card';
-        nextButton.onclick = function() {
-            AppState.currentCardIndex++;
+        // Add "Reveal Card" button
+        const revealButton = document.createElement('button');
+        revealButton.className = 'btn btn-primary btn-large';
+        revealButton.textContent = `🎴 Reveal the ${currentCard.position.name} Card`;
+        revealButton.onclick = function() {
+            AppState.showingPosition = false;
             revealNextCard();
         };
-        interpretationPanel.appendChild(nextButton);
+        interpretationPanel.appendChild(revealButton);
+
+    // STEP 2: Show the actual card with interpretation
     } else {
-        // All cards revealed - show synthesis
-        const synthesisBox = document.createElement('div');
-        synthesisBox.className = 'synthesis-box';
-        synthesisBox.innerHTML = `
-            <h3>🔮 Reading Synthesis</h3>
-            <p><strong>Big Picture:</strong> ${generateSynthesis()}</p>
-            <p><strong>Guidance:</strong> ${generateGuidance()}</p>
+        const section = document.createElement('div');
+        section.className = 'interpretation-section';
+
+        const keywords = currentCard.meaning.keywords.map(kw =>
+            `<span class="keyword-tag">${kw}</span>`
+        ).join('');
+
+        const personalizedInterpretation = generatePersonalizedCardInterpretation(currentCard, AppState.currentCardIndex);
+
+        section.innerHTML = `
+            <h3>${AppState.currentCardIndex + 1}. ${currentCard.position.name}: ${currentCard.displayName} ${currentCard.isReversed ? '(Reversed)' : ''}</h3>
+            <div class="card-meaning">
+                <p><strong>Position:</strong> ${currentCard.position.description}</p>
+                <p><strong>Card Energy:</strong> ${currentCard.meaning.meaning}</p>
+                <div class="keywords">${keywords}</div>
+            </div>
+            <div class="operator-script">
+                <h4>💬 What to Say to the Caller:</h4>
+                <p>${personalizedInterpretation}</p>
+            </div>
         `;
-        interpretationPanel.appendChild(synthesisBox);
+
+        interpretationPanel.appendChild(section);
+
+        // Check if there are more cards to reveal
+        if (AppState.currentCardIndex < AppState.drawnCards.length - 1) {
+            // Add "Next Position" button
+            const nextButton = document.createElement('button');
+            nextButton.className = 'btn btn-primary btn-large';
+            nextButton.textContent = '➡️ Next Position';
+            nextButton.onclick = function() {
+                AppState.currentCardIndex++;
+                AppState.showingPosition = true;
+                revealNextCard();
+            };
+            interpretationPanel.appendChild(nextButton);
+        } else {
+            // All cards revealed - show synthesis
+            const synthesisBox = document.createElement('div');
+            synthesisBox.className = 'synthesis-box';
+            synthesisBox.innerHTML = `
+                <h3>🔮 Reading Synthesis</h3>
+                <p><strong>Big Picture:</strong> ${generateSynthesis()}</p>
+                <p><strong>Guidance:</strong> ${generateGuidance()}</p>
+            `;
+            interpretationPanel.appendChild(synthesisBox);
+        }
     }
 }
 
