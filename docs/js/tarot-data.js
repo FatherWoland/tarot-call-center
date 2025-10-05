@@ -116,6 +116,7 @@ function getFullDeck() {
                 displayName: cardName,
                 id: `${suit}-${card.num}`,
                 suit: suit,
+                arcana: 'minor',
                 number: card.num
             });
         });

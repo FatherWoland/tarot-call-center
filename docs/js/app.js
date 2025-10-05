@@ -360,7 +360,7 @@ function generateSynthesis() {
     if (majorCount === cards.length) {
         synthesis += 'This reading is entirely Major Arcana - this is a profoundly significant moment in your life. The universe is speaking loudly, and major forces are at work beyond your immediate control. ';
     } else if (majorCount > cards.length / 2) {
-        synthesis += 'The dominance of Major Arcana cards reveals that this situation involves significant life lessons and spiritual themes. These aren't just day-to-day concerns - they're part of your soul's journey. ';
+        synthesis += `The dominance of Major Arcana cards reveals that this situation involves significant life lessons and spiritual themes. These aren't just day-to-day concerns - they're part of your soul's journey. `;
     } else if (majorCount === 0) {
         synthesis += 'Your reading shows all Minor Arcana cards, which means you have considerable power to influence this situation. These are practical matters within your control. ';
     }
@@ -372,7 +372,7 @@ function generateSynthesis() {
     );
 
     const suitNarratives = {
-        wands: 'passion and willpower are driving this situation - there\'s fire and momentum here, urging you to take bold action',
+        wands: `passion and willpower are driving this situation - there's fire and momentum here, urging you to take bold action`,
         cups: 'deep emotions and relationships are at the heart of this matter - your feelings and connections with others are the key',
         swords: 'mental clarity and communication are central - this is about truth, thought processes, and how you express yourself',
         pentacles: 'practical and material concerns are foundational here - this is about building something tangible and secure'
@@ -415,8 +415,8 @@ function generateGuidance() {
     const emotionalOpenings = {
         hopeful: 'Your hopeful energy aligns well with what the cards are showing. ',
         worried: 'I understand your worry, and the cards offer clarity to ease your concerns. ',
-        confused: 'The confusion you\'re feeling makes sense given what\'s happening, and the cards provide the clarity you need. ',
-        sad: 'The cards acknowledge the sadness you\'re carrying and offer a path forward. ',
+        confused: `The confusion you're feeling makes sense given what's happening, and the cards provide the clarity you need. `,
+        sad: `The cards acknowledge the sadness you're carrying and offer a path forward. `,
         angry: 'Your frustration is valid, and the cards show you how to channel that energy productively. ',
         neutral: 'The cards have an important message for you. '
     };
@@ -471,7 +471,7 @@ function generateGuidance() {
             guidance += 'This is a significant spiritual lesson - embrace it fully. ';
         }
 
-        guidance += 'Honor your process, be patient with yourself, and trust that you\'re exactly where you need to be. ';
+        guidance += `Honor your process, be patient with yourself, and trust that you're exactly where you need to be. `;
 
     } else if (topic === 'family') {
         guidance += `In family matters, the cards show ${firstCard.displayName} leading to ${lastCard.displayName}. ${lastCard.meaning.interpretation} `;
