@@ -14,6 +14,7 @@ const AppState = {
     },
     selectedSpread: null,
     drawnCards: [],
+    currentCardIndex: 0,
     readingData: {}
 };
 
@@ -270,13 +271,14 @@ function drawCards() {
         position: spread.positions[index]
     }));
 
-    // Display cards and interpretation
-    displayReading();
+    // Reset card index and start progressive revelation
+    AppState.currentCardIndex = 0;
     showSection('readingSection');
+    revealNextCard();
 }
 
-// Display Reading
-function displayReading() {
+// Reveal Next Card (Progressive Revelation)
+function revealNextCard() {
     const cardsDisplay = document.getElementById('cardsDisplay');
     const interpretationPanel = document.getElementById('interpretationPanel');
 
@@ -284,11 +286,12 @@ function displayReading() {
     cardsDisplay.innerHTML = '';
     interpretationPanel.innerHTML = '';
 
-    // Display cards
+    // Display all cards revealed so far
     const cardRow = document.createElement('div');
     cardRow.className = 'card-row';
 
-    AppState.drawnCards.forEach(card => {
+    for (let i = 0; i <= AppState.currentCardIndex; i++) {
+        const card = AppState.drawnCards[i];
         const cardDiv = document.createElement('div');
         cardDiv.className = `tarot-card ${card.isReversed ? 'card-reversed' : ''}`;
         cardDiv.innerHTML = `
@@ -297,44 +300,56 @@ function displayReading() {
             <div class="card-orientation">${card.isReversed ? 'Reversed' : 'Upright'}</div>
         `;
         cardRow.appendChild(cardDiv);
-    });
+    }
 
     cardsDisplay.appendChild(cardRow);
 
-    // Display interpretation for each card
-    AppState.drawnCards.forEach((card, index) => {
-        const section = document.createElement('div');
-        section.className = 'interpretation-section';
+    // Display interpretation for the current card only
+    const currentCard = AppState.drawnCards[AppState.currentCardIndex];
+    const section = document.createElement('div');
+    section.className = 'interpretation-section';
 
-        const keywords = card.meaning.keywords.map(kw =>
-            `<span class="keyword-tag">${kw}</span>`
-        ).join('');
+    const keywords = currentCard.meaning.keywords.map(kw =>
+        `<span class="keyword-tag">${kw}</span>`
+    ).join('');
 
-        section.innerHTML = `
-            <h3>${index + 1}. ${card.position.name}: ${card.displayName} ${card.isReversed ? '(Reversed)' : ''}</h3>
-            <div class="card-meaning">
-                <p><strong>Position Meaning:</strong> ${card.position.description}</p>
-                <p><strong>Card Meaning:</strong> ${card.meaning.meaning}</p>
-                <div class="keywords">${keywords}</div>
-            </div>
-            <div class="operator-script">
-                <h4>💬 What to Say:</h4>
-                <p>"${card.meaning.interpretation}"</p>
-            </div>
-        `;
-
-        interpretationPanel.appendChild(section);
-    });
-
-    // Add synthesis section
-    const synthesisBox = document.createElement('div');
-    synthesisBox.className = 'synthesis-box';
-    synthesisBox.innerHTML = `
-        <h3>🔮 Reading Synthesis</h3>
-        <p><strong>Big Picture:</strong> ${generateSynthesis()}</p>
-        <p><strong>Guidance:</strong> ${generateGuidance()}</p>
+    section.innerHTML = `
+        <h3>${AppState.currentCardIndex + 1}. ${currentCard.position.name}: ${currentCard.displayName} ${currentCard.isReversed ? '(Reversed)' : ''}</h3>
+        <div class="card-meaning">
+            <p><strong>Position Meaning:</strong> ${currentCard.position.description}</p>
+            <p><strong>Card Meaning:</strong> ${currentCard.meaning.meaning}</p>
+            <div class="keywords">${keywords}</div>
+        </div>
+        <div class="operator-script">
+            <h4>💬 What to Say:</h4>
+            <p>"${currentCard.meaning.interpretation}"</p>
+        </div>
     `;
-    interpretationPanel.appendChild(synthesisBox);
+
+    interpretationPanel.appendChild(section);
+
+    // Check if there are more cards to reveal
+    if (AppState.currentCardIndex < AppState.drawnCards.length - 1) {
+        // Add "Next Card" button
+        const nextButton = document.createElement('button');
+        nextButton.className = 'btn btn-primary btn-large';
+        nextButton.textContent = '🎴 Reveal Next Card';
+        nextButton.onclick = function() {
+            AppState.currentCardIndex++;
+            revealNextCard();
+        };
+        interpretationPanel.appendChild(nextButton);
+    } else {
+        // All cards revealed - show synthesis
+        const synthesisBox = document.createElement('div');
+        synthesisBox.className = 'synthesis-box';
+        synthesisBox.innerHTML = `
+            <h3>🔮 Reading Synthesis</h3>
+            <p><strong>Big Picture:</strong> ${generateSynthesis()}</p>
+            <p><strong>Guidance:</strong> ${generateGuidance()}</p>
+        `;
+        interpretationPanel.appendChild(synthesisBox);
+    }
 }
 
 // Generate Synthesis with Professional Narrative Techniques
