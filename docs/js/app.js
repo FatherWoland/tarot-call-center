@@ -404,7 +404,7 @@ function revealNextCard() {
     }
 }
 
-// Generate Personalized Card Interpretation Based on Caller's Circumstances
+// Generate Personalized Card Interpretation as Direct Speech to Caller
 function generatePersonalizedCardInterpretation(card, cardIndex) {
     const topic = AppState.callerData.topic;
     const emotionalState = AppState.callerData.emotionalState;
@@ -412,132 +412,126 @@ function generatePersonalizedCardInterpretation(card, cardIndex) {
     const callerName = AppState.callerData.name || 'you';
     const position = card.position;
 
-    let interpretation = '';
+    let script = '';
 
     // Opening that connects to their situation
     const topicContext = {
-        love: 'your relationship situation',
-        career: 'your career path',
-        money: 'your financial situation',
-        personal: 'your personal growth journey',
-        family: 'your family dynamics',
-        health: 'your health and wellbeing',
-        general: 'your life path'
+        love: 'your relationship',
+        career: 'your career',
+        money: 'your finances',
+        personal: 'your personal growth',
+        family: 'your family',
+        health: 'your wellbeing',
+        general: 'your life'
     };
 
     const context = topicContext[topic] || 'your situation';
 
-    // Start with position context
-    interpretation += `In the ${position.name} position, representing ${position.description.toLowerCase()}, `;
+    // Start with acknowledging what position means for THEM
+    script += `Okay, so in the ${position.name} position - which shows us ${position.description.toLowerCase()} - `;
 
-    // Connect card to their specific circumstances
+    // Connect card to their specific circumstances - DIRECT SPEECH
     if (topic === 'love') {
         if (card.isReversed) {
-            interpretation += `${card.displayName} reversed addresses ${context}. `;
-            interpretation += `This suggests that ${card.meaning.interpretation.toLowerCase()} `;
+            script += `we've drawn ${card.displayName} reversed. `;
 
             if (emotionalState === 'sad' || emotionalState === 'worried') {
-                interpretation += `The pain you're feeling is reflected here - `;
+                script += `I can see you're carrying some pain around this, and this card is reflecting that back to us. `;
             } else if (emotionalState === 'confused') {
-                interpretation += `The confusion you mentioned makes sense because `;
+                script += `The confusion you've been feeling makes sense when we look at this card. `;
             }
 
-            interpretation += `in matters of the heart, ${card.meaning.keywords[0]} is being blocked or internalized. `;
+            script += `What this is telling me is that ${card.meaning.interpretation.toLowerCase()} - but right now, that energy of ${card.meaning.keywords[0]} is blocked or turned inward in ${context}. `;
 
             if (mainQuestion) {
-                interpretation += `Regarding "${mainQuestion}" - this card suggests you need to address the reversed energy of ${card.meaning.keywords[0]} before moving forward. `;
+                script += `When you ask me "${mainQuestion}" - this card is saying you've got to work through this reversed ${card.meaning.keywords[0]} energy first. That's the key to moving forward. `;
             }
         } else {
-            interpretation += `${card.displayName} speaks directly to ${context}. `;
-            interpretation += `${card.meaning.interpretation} `;
+            script += `we have ${card.displayName}. `;
 
             if (emotionalState === 'hopeful') {
-                interpretation += `Your hopeful energy aligns with this card's message of ${card.meaning.keywords[0]}. `;
+                script += `And I love that you're feeling hopeful about this, because this card is really confirming that energy. `;
             }
 
+            script += `${card.meaning.interpretation} This is speaking directly to ${context}. `;
+
             if (mainQuestion) {
-                interpretation += `In relation to your question about "${mainQuestion}" - this card shows that ${card.meaning.keywords[0]} is key to understanding your path forward. `;
+                script += `So when you ask "${mainQuestion}" - the cards are showing me that ${card.meaning.keywords[0]} is absolutely central here. That's what you need to understand and work with. `;
             }
         }
 
     } else if (topic === 'career') {
-        interpretation += `${card.displayName} ${card.isReversed ? 'reversed' : ''} reveals important insights about ${context}. `;
+        script += `we've got ${card.displayName}${card.isReversed ? ' reversed' : ''}. `;
 
-        if (card.suit === 'pentacles') {
-            interpretation += `As a Pentacles card, this speaks to the practical, material aspects of your work life. `;
-        } else if (card.suit === 'wands') {
-            interpretation += `As a Wands card, this addresses your passion, ambition, and drive in your career. `;
-        } else if (card.suit === 'swords') {
-            interpretation += `As a Swords card, this points to mental clarity, communication, and decision-making at work. `;
-        } else if (card.suit === 'cups') {
-            interpretation += `As a Cups card, this reflects the emotional fulfillment and relationships in your professional life. `;
-        }
-
-        interpretation += `${card.meaning.interpretation} `;
+        script += `${card.meaning.interpretation} This is what's happening with ${context} right now. `;
 
         if (mainQuestion) {
-            interpretation += `When you ask "${mainQuestion}" - this card indicates that ${card.meaning.keywords[0]} ${card.isReversed ? 'needs attention and rebalancing' : 'is the energy you should focus on'}. `;
+            script += `You asked me "${mainQuestion}" - and what I'm seeing is that ${card.meaning.keywords[0]} is ${card.isReversed ? 'where you need to put your attention. Something needs rebalancing here' : 'the energy that\'s going to help you most'}. `;
+        }
+
+        if (emotionalState === 'worried') {
+            script += `I know you're worried about this, but the cards are giving us clear direction on what to focus on. `;
         }
 
     } else if (topic === 'money') {
-        interpretation += `${card.displayName} ${card.isReversed ? 'reversed' : ''} addresses ${context}. `;
-
-        if (card.suit === 'pentacles' && !card.isReversed) {
-            interpretation += `This is a strong financial indicator. `;
-        } else if (card.isReversed) {
-            interpretation += `The reversal suggests financial energy that's blocked or needs redirection. `;
-        }
-
-        interpretation += `${card.meaning.interpretation} `;
+        script += `I'm seeing ${card.displayName}${card.isReversed ? ' reversed' : ''}. `;
 
         if (emotionalState === 'worried' || emotionalState === 'anxious') {
-            interpretation += `I know money concerns are causing you stress. This card shows that ${card.meaning.keywords[0]} is ${card.isReversed ? 'an area needing your attention' : 'available to you now'}. `;
+            script += `I know money worries are weighing on you. `;
         }
 
+        if (card.isReversed) {
+            script += `The reversal here tells me that the energy around ${context} is blocked right now. `;
+        }
+
+        script += `${card.meaning.interpretation} `;
+
         if (mainQuestion) {
-            interpretation += `Regarding "${mainQuestion}" - the answer lies in ${card.isReversed ? 'correcting' : 'embracing'} the energy of ${card.meaning.keywords[0]}. `;
+            script += `When you're asking "${mainQuestion}" - what the cards are showing is that ${card.meaning.keywords[0]} is ${card.isReversed ? 'what needs to shift. You\'re going to need to address this to move forward' : 'working in your favor. This is the energy to lean into'}. `;
         }
 
     } else if (topic === 'personal') {
-        interpretation += `${card.displayName} ${card.isReversed ? 'reversed' : ''} speaks to ${context}. `;
+        script += `we have ${card.displayName}${card.isReversed ? ' reversed' : ''}. `;
 
         if (card.arcana === 'major') {
-            interpretation += `As a Major Arcana card, this represents a significant spiritual lesson and life theme you're working with. `;
+            script += `Now this is a Major Arcana card, so this is a big soul lesson we're looking at here. `;
         }
 
-        interpretation += `${card.meaning.interpretation} `;
+        script += `${card.meaning.interpretation} `;
 
         if (emotionalState === 'confused' || emotionalState === 'lost') {
-            interpretation += `The confusion you're experiencing is part of this journey - ${card.meaning.keywords[0]} is calling you to ${card.isReversed ? 'release resistance and' : ''} embrace growth. `;
+            script += `I know you're feeling a bit lost right now, but that confusion? It's actually part of the journey. ${card.meaning.keywords[0]} is calling you to ${card.isReversed ? 'let go of resistance and ' : ''}move toward growth. `;
         }
 
         if (mainQuestion) {
-            interpretation += `Your question "${mainQuestion}" is answered through the lens of ${card.meaning.keywords[0]} - this is what your soul is working on right now. `;
+            script += `You asked "${mainQuestion}" - and what I'm picking up is that ${card.meaning.keywords[0]} is what your soul is working on right now. This is your answer. `;
         }
 
     } else if (topic === 'family') {
-        interpretation += `${card.displayName} ${card.isReversed ? 'reversed' : ''} illuminates ${context}. `;
-        interpretation += `${card.meaning.interpretation} `;
+        script += `the cards are showing me ${card.displayName}${card.isReversed ? ' reversed' : ''}. `;
+
+        script += `${card.meaning.interpretation} `;
 
         if (emotionalState === 'angry' || emotionalState === 'frustrated') {
-            interpretation += `Your frustration is valid - this card shows that ${card.meaning.keywords[0]} is ${card.isReversed ? 'being blocked in these relationships' : 'the path to healing'}. `;
+            script += `Look, I can hear the frustration in your voice, and that's completely valid. This card is telling me that ${card.meaning.keywords[0]} is ${card.isReversed ? 'getting blocked in these family dynamics' : 'actually the path through this'}. `;
         }
 
         if (mainQuestion) {
-            interpretation += `When it comes to "${mainQuestion}" - this card reveals that ${card.meaning.keywords[0]} is central to resolving this family matter. `;
+            script += `You're asking "${mainQuestion}" - and this card is showing that ${card.meaning.keywords[0]} is at the heart of this family situation. That's what needs your attention. `;
         }
 
     } else {
         // General reading
-        interpretation += `${card.displayName} ${card.isReversed ? 'reversed' : ''} appears in ${context}. `;
-        interpretation += `${card.meaning.interpretation} `;
+        script += `we're looking at ${card.displayName}${card.isReversed ? ' reversed' : ''}. `;
+
+        script += `${card.meaning.interpretation} `;
 
         if (mainQuestion) {
-            interpretation += `In answer to "${mainQuestion}" - this card brings the energy of ${card.meaning.keywords[0]}, which ${card.isReversed ? 'needs to be unblocked or redirected' : 'is available to guide you forward'}. `;
+            script += `So "${mainQuestion}" - the answer I'm getting from the cards is that ${card.meaning.keywords[0]} is ${card.isReversed ? 'blocked right now. This needs to be cleared or redirected' : 'the energy that\'s available to you. This is what will guide you forward'}. `;
         }
     }
 
-    return interpretation;
+    return script;
 }
 
 // Generate Synthesis with Professional Narrative Techniques
